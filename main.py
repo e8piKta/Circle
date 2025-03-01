@@ -16,16 +16,17 @@ class Circle(QDialog):
         x = random.randint(0, 450)
         y = random.randint(0, 390)
         d = random.randint(20, 100)
-        self.circles.append((x, y, d))
+        colors = [random.randint(0, 255) for i in range(3)]
+        self.circles.append((x, y, d, colors))
         self.update()
 
     def paintEvent(self, event):
         painter = QtGui.QPainter(self)
         painter.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
-        painter.setBrush(QtGui.QBrush(QtGui.QColor(255, 255, 0)))
-        painter.setPen(QtGui.QPen(QtGui.QColor(255, 255, 0), 1))
 
-        for x, y, diameter in self.circles:
+        for x, y, diameter, colors in self.circles:
+            painter.setBrush(QtGui.QBrush(QtGui.QColor(colors[0], colors[1], colors[2])))
+            painter.setPen(QtGui.QPen(QtGui.QColor(colors[0], colors[1], colors[2]), 1))
             painter.drawEllipse(x, y, diameter, diameter)
 
 
